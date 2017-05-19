@@ -156,6 +156,53 @@
 				.attr("x2",w)
 				.attr("class","divider")
 
+			const rows = svg.append("g")
+				.attr("id","rows")
+				.selectAll("g")
+				.data(csv)
+				.enter()
+				.append("g")
+				.attr("id",function(d,i){
+					return "row_"+(i+1);
+				})
+				.attr("transform","translate(0,100)")
+				//need to translate the groups later after we have created the content
+
+
+			rows.each(function(d,i){
+
+				const currentRow = d3.select(this);
+				
+				headings.forEach(function(e,j){
+					//console.log(d[e])
+
+					const textContent = currentRow.append("text")
+					.attr("id",function(d){
+						return "row"+i+"col"+j;
+					})
+					.attr("class","row")
+					.attr("x",colPos[j]+cellPadding.left);
+
+					const tspans = textContent.selectAll("tspan")
+						.data(function(d,i){
+							return d[e].split("|")
+						})
+						.enter()
+						.append("tspan")
+						.text(function(d){return d;})
+						.attr("x",colPos[j]+cellPadding.left)
+						.attr("dy",9)
+
+				
+				})
+
+
+				//select a group
+				//
+
+			})
+
+
 			//row groups
 			/*const rows = svg.append("g")
 				.attr("id","rows")
@@ -211,7 +258,7 @@
 					.text(function(e){
 						return e[d];
 					})*/
-					
+
 			})
 		})
 
