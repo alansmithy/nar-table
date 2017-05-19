@@ -21,20 +21,6 @@
 	<body>
 	<script>
 
-
-		/*
-				double deck source
-				double deck row 
-				detect text/number in columns and format right/center accordingly
-				consistent , and .00 for numbers
-
-				italicise after brackets...
-				vert dividers flush with last cell
-
-				odd-even shading (last cell grey)
-
-		*/
-
 		const dataSource = "toys.csv"
 		const title = "Another | title";
 		const source = "New source"
@@ -171,7 +157,7 @@
 				.attr("class","divider")
 
 			//row groups
-			const rows = svg.append("g")
+			/*const rows = svg.append("g")
 				.attr("id","rows")
 				.selectAll("g")
 				.data(csv)
@@ -196,10 +182,12 @@
 						return "rowOdd"
 					}
 				})
+*/
+
 
 			headings.forEach(function(d,i){
 				//column dividers
-				if (i>0){
+				/*if (i>0){
 					svg.append("line")
 						.attr("class","divider")
 						.attr("x1",function(){
@@ -210,10 +198,11 @@
 						})
 						.attr("y1",margin.top-cellPadding.bottom-13)
 						.attr("y2",h-margin.bottom-cellPadding.bottom-14)
-				}
+				}*/
 
 				//create the text in each column - rows means it will do this for every row - 
-				rows.append("text")
+
+				/*rows.append("text")
 					.attr("x",function(e){
 						return colPos[i]+cellPadding.left
 					})
@@ -221,7 +210,8 @@
 					.attr("y",(9+cellPadding.top))
 					.text(function(e){
 						return e[d];
-					})
+					})*/
+					
 			})
 		})
 
