@@ -32,30 +32,27 @@
 		const w = 580;//width is constant, you can only set it here
 		let h;//will be determined by the rows and will change
 
+		const titleLeading = 14;
+		const rowLeading = 10;
+
 		const margin = {
-			top:70,
+			top:100,
 			bottom:30
 		};
 
 		const cellPadding = {
 			left:4,
 			top:10,
-			bottom:3
+			bottom:4
 		};
 
 		d3.csv(dataSource,function(csv){
 
-
-
 			//column names
 			const headings = d3.keys(csv[0]);
 
-
 			//work out how tall this svg needs to be
 			const nRows = csv.length;
-			/*if (h){}else{
-				h = margin.top+margin.bottom+(9+(cellPadding.top+cellPadding.bottom))*(nRows+1)
-			}*/
 
 			//draw SVG
 			const svg = d3.select("body").append("svg")
@@ -64,8 +61,7 @@
 
 			//title
 			const titleText = svg.append("text")
-				.attr("class","title");
-
+				.attr("class","title")
 			titleText.selectAll("tspan")
 				.data(title.split("|"))
 				.enter()
@@ -76,64 +72,8 @@
 				.attr("x",0)
 				.attr("y",20)
 				.attr("dy",function(d,i){
-					return i*12
+					return i*titleLeading;
 				})
-
-			//source
-			/*svg.append("text")
-				.attr("x",function(d){
-					if (footnote){
-						return w;
-					}	else	{
-						return 0;
-					}
-				})
-				.attr("y",h-6)
-				.attr("text-anchor",function(d){
-					if (footnote){
-						return "end";
-					}	else	{
-						return "start";
-					}
-				})
-				.attr("class","source")
-				.attr("font-style","italic")
-				.text(source)
-
-			if (footnote){
-				var footnoteText = svg.append("text")
-					.attr("y",h-6)
-					.attr("class","source")
-					.attr("font-style","italic")
-					
-					//tspan for each element
-					footnoteText.selectAll("tspan")
-					.data(footnote.split("|"))
-						.enter()
-						.append("tspan")
-						.text(function(d,i){return d;})
-						.attr("x",0)
-						.attr("y",20)
-						.attr("dy",function(d,i){return i*10;})
-
-					//now translate the group based on it's BBox
-					var footH = footnoteText.node().getBBox().height;
-					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
-			}
-*/
-			//table header/footer lines
-			//upper
-			/*svg.append("line")
-				.attr("class","frame")
-				.attr("y1",1)
-				.attr("y2",1)
-				.attr("x2",w)
-			//lower
-			svg.append("line")
-				.attr("class","frame")
-				.attr("y1",h-2)
-				.attr("y2",h-2)
-				.attr("x2",w)*/
 
 			//header information
 			const header = svg.append("g")
@@ -165,16 +105,14 @@
 				.attr("id",function(d,i){
 					return "row_"+(i+1);
 				})
-
 				//need to translate the groups later after we have created the content
 
-			let rowHeights = []
+			let rowHeights = [];
 
-
+			//outer loop - execute for every row
 			rows.each(function(d,i){
 
 				const currentRow = d3.select(this);
-
 				const rect = currentRow.append("rect")
 					.attr("width",w)
 					.attr("fill","#eee")
@@ -187,6 +125,7 @@
 					})
 					//place in the background, set height attributes later
 			
+				//inner loop - execute for each column within each row
 				headings.forEach(function(e,j){
 					const textContent = currentRow.append("text")
 						.attr("id",function(d){
@@ -202,33 +141,19 @@
 						.append("tspan")
 						.text(function(d){return d;})
 						.attr("x",colPos[j]+cellPadding.left)
-						.attr("dy",10)
+						.attr("dy",rowLeading)
 				})
 
+				//height offset
 				currentRow.attr("transform",function(){
 					return "translate(0,"+((i*(cellPadding.top+cellPadding.bottom))+(margin.top+d3.sum(rowHeights)))+")";
 				})
+
 				rowHeights.push(currentRow.node().getBBox().height);
 
 				rect.attr("height",function(){
 					return rowHeights[i]+cellPadding.top+cellPadding.bottom
 				})
-			})
-
-			headings.forEach(function(d,i){
-				//column dividers
-				/*if (i>0){
-					svg.append("line")
-						.attr("class","divider")
-						.attr("x1",function(){
-							return colPos[i]
-						})
-						.attr("x2",function(){
-							return colPos[i]
-						})
-						.attr("y1",margin.top-cellPadding.bottom-13)
-						.attr("y2",h-margin.bottom-cellPadding.bottom-14)
-				}*/
 			})
 		})
 
