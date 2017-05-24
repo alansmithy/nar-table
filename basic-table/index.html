@@ -23,8 +23,8 @@
 
 		const dataSource = "toys.csv"
 		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur sodales ligula sagittis volutpat.";
-		const source = "New source"
-		const footnote = "New footnote";//for no footnote, provide no value i.e. just leave is as 'let footnote//'
+		const source = "New source which will be |linewrapped"
+		const footnote = "New footnote";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
 
 		//starting positions for columns
 		const colPos = [0,40,110,450];
@@ -32,27 +32,31 @@
 		const w = 580;//width is constant, you can only set it here
 		let h;//will be determined by the rows and will change
 
+		//leading settings
 		const titleLeading = 14;
 		const rowLeading = 10;
 
+		//margins above and below the table itself
 		const margin = {
 			top:100,
-			bottom:30
+			bottom:50
 		};
 
+		//table cell padding
 		const cellPadding = {
 			left:4,
 			top:10,
 			bottom:4
 		};
 
+
+		/*shouldn't need to change much below here*/
+
+		//load data
 		d3.csv(dataSource,function(csv){
 
-			//column names
+			//extract column names
 			const headings = d3.keys(csv[0]);
-
-			//work out how tall this svg needs to be
-			const nRows = csv.length;
 
 			//draw SVG
 			const svg = d3.select("body").append("svg")
@@ -142,19 +146,32 @@
 						.text(function(d){return d;})
 						.attr("x",colPos[j]+cellPadding.left)
 						.attr("dy",rowLeading)
-				})
+				})//end inner loop (columns)
 
-				//height offset
+				//height offset by sum of existing rows
 				currentRow.attr("transform",function(){
 					return "translate(0,"+((i*(cellPadding.top+cellPadding.bottom))+(margin.top+d3.sum(rowHeights)))+")";
 				})
 
+				//add the current row to the collection of row heights 
 				rowHeights.push(currentRow.node().getBBox().height);
 
 				rect.attr("height",function(){
 					return rowHeights[i]+cellPadding.top+cellPadding.bottom
 				})
+
+			})//end outer loop (rows)
+
+			//set the height of the svg element
+			svg.attr("height",function(){
+				const tableHeight = d3.select("#rows").node().getBBox().height
+				return margin.top+margin.bottom+tableHeight
 			})
+
+			console.log(svg.attr("height"))
+
+
+
 		})
 
 		function isEven(n) {
