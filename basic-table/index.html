@@ -126,7 +126,7 @@
 							return "rowOdd"
 						}
 					})
-					//place in the background, set height attributes later
+					//places the rect in the background, we set height attributes later once the text has been laid out
 			
 				//inner loop - execute for each column within each row
 				headings.forEach(function(e,j){
@@ -166,6 +166,27 @@
 				const tableHeight = d3.select("#rows").node().getBBox().height
 				return margin.top+margin.bottom+tableHeight
 			})
+
+			//add vertical column separators
+			svg.append("g").selectAll("line")
+				.data(headings)
+				.enter()
+				.append("line")
+				.attr("class","divider")
+				.attr("x1",function(d,i){
+					return colPos[i];
+				})
+				.attr("x2",function (d,i){
+					return colPos[i];
+				})
+				.attr("y1",function(){
+					const headerHeight = d3.select("#header").node().getBBox().height;
+					return margin.top-headerHeight;
+				})
+				.attr("y2",function(){
+					const tableHeight = d3.select("#rows").node().getBBox().height;
+					return tableHeight+margin.top;
+				})
 
 
 		})
