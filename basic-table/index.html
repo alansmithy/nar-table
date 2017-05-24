@@ -49,7 +49,6 @@
 			bottom:4
 		};
 
-
 		/*shouldn't need to change much below here*/
 
 		//load data
@@ -61,11 +60,11 @@
 			//draw SVG
 			const svg = d3.select("body").append("svg")
 				.attr("width",w)
-				.attr("height",900);
 
 			//title
 			const titleText = svg.append("text")
 				.attr("class","title")
+
 			titleText.selectAll("tspan")
 				.data(title.split("|"))
 				.enter()
@@ -162,14 +161,11 @@
 
 			})//end outer loop (rows)
 
-			//set the height of the svg element
+			//set the height of the svg element based on the completed table
 			svg.attr("height",function(){
 				const tableHeight = d3.select("#rows").node().getBBox().height
 				return margin.top+margin.bottom+tableHeight
 			})
-
-			console.log(svg.attr("height"))
-
 
 
 		})
