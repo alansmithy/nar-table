@@ -64,7 +64,7 @@
 			//title
 			const titleText = svg.append("text")
 				.attr("class","title")
-
+			//create title tspan (multiline) elements
 			titleText.selectAll("tspan")
 				.data(title.split("|"))
 				.enter()
@@ -156,9 +156,12 @@
 
 			//set the height of the svg element based on the completed table
 			svg.attr("height",function(){
-				const tableHeight = d3.select("#rows").node().getBBox().height
-				return margin.top+margin.bottom+tableHeight
+				const tableHeight = d3.select("#rows").node().getBBox().height;
+				h = margin.top+margin.bottom+tableHeight;
+				return h;
 			})
+
+
 
 			//horizontal header divider
 			svg.append("line")
@@ -187,6 +190,27 @@
 					const tableHeight = d3.select("#rows").node().getBBox().height;
 					return tableHeight+margin.top;
 				})
+
+			if (footnote){
+				var footnoteText = svg.append("text")
+					.attr("y",h-6)
+					.attr("class","source")
+					.attr("font-style","italic")
+					
+					//tspan for each element
+					footnoteText.selectAll("tspan")
+					.data(footnote.split("|"))
+						.enter()
+						.append("tspan")
+						.text(function(d,i){return d;})
+						.attr("x",0)
+						.attr("y",20)
+						.attr("dy",function(d,i){return i*10;})
+
+					//now translate the group based on it's BBox
+					var footH = footnoteText.node().getBBox().height;
+					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
+			}
 
 
 		})
