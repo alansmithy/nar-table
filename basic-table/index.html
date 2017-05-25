@@ -92,13 +92,6 @@
 				.attr("class","heading")
 				.text(function(d){return d.toUpperCase()})
 
-			//header divider
-			svg.append("line")
-				.attr("y1",margin.top)
-				.attr("y2",margin.top)
-				.attr("x2",w)
-				.attr("class","divider")
-
 			const rows = svg.append("g")
 				.attr("id","rows")
 				.selectAll("g")
@@ -166,6 +159,13 @@
 				const tableHeight = d3.select("#rows").node().getBBox().height
 				return margin.top+margin.bottom+tableHeight
 			})
+
+			//horizontal header divider
+			svg.append("line")
+				.attr("y1",margin.top)
+				.attr("y2",margin.top)
+				.attr("x2",w)
+				.attr("class","divider")
 
 			//add vertical column separators
 			svg.append("g").selectAll("line")
