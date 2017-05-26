@@ -35,6 +35,7 @@
 		//leading settings
 		const titleLeading = 14;
 		const rowLeading = 10;
+		const headerLeading = 10;
 		const footnoteLeading = 10;
 
 		//margins above and below the table itself
@@ -87,7 +88,12 @@
 				.selectAll("text")
 				.data(headings)
 				.enter()
-				.append("text");
+				.append("text")
+				.attr("x",function(d,i){
+					return colPos[i]+cellPadding.left;
+				})
+				.attr("y",margin.top-cellPadding.bottom)
+				.attr("class","heading");
 
 			header.selectAll("tspan")
 				.data(function(d){
@@ -98,6 +104,15 @@
 				.text(function(d){
 					return d.toUpperCase();
 				})
+				.attr("dy",function(d,i){
+					return i*headerLeading;
+				})
+
+
+			//set all tspan x to colPos + cellPadding
+			//adjust y offset for height
+				
+
 
 
 			/*	.attr("x",function(d,i){
