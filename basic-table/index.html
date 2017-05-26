@@ -35,6 +35,7 @@
 		//leading settings
 		const titleLeading = 14;
 		const rowLeading = 10;
+		const headerLeading = 10;
 		const footnoteLeading = 10;
 
 		//margins above and below the table itself
@@ -57,6 +58,8 @@
 
 			//extract column names
 			const headings = d3.keys(csv[0]);
+
+
 
 			//draw SVG
 			const svg = d3.select("body").append("svg")
@@ -89,9 +92,43 @@
 				.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
+				.attr("y",margin.top)
+				.attr("class","heading");
+
+			header.selectAll("tspan")
+				.data(function(d){
+					return d.split("|");
+				})
+				.enter()
+				.append("tspan")
+				.text(function(d){
+					return d.toUpperCase();
+				})
+				.attr("x",function(d,i){
+					//inherit the x attribute of the parent text node
+					return d3.select(this).node().parentNode.getAttribute("x");
+				})
+				.attr("dy",function(d,i){
+					return headerLeading;
+				})
+
+
+			d3.select("#header").attr("transform",function(){
+				const headerHeight = d3.select("#header").node().getBBox().height;
+				return "translate(0,"+(-headerHeight)+")";
+			})
+
+			//adjust y offset for height
+				
+
+
+
+			/*	.attr("x",function(d,i){
+					return colPos[i]+cellPadding.left;
+				})
 				.attr("y",margin.top-cellPadding.bottom)
 				.attr("class","heading")
-				.text(function(d){return d.toUpperCase()})
+				.text(function(d){return d.toUpperCase()})*/
 
 			const rows = svg.append("g")
 				.attr("id","rows")
