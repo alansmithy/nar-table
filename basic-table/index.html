@@ -58,6 +58,8 @@
 			//extract column names
 			const headings = d3.keys(csv[0]);
 
+
+
 			//draw SVG
 			const svg = d3.select("body").append("svg")
 				.attr("width",w)
@@ -85,13 +87,25 @@
 				.selectAll("text")
 				.data(headings)
 				.enter()
-				.append("text")
-				.attr("x",function(d,i){
+				.append("text");
+
+			header.selectAll("tspan")
+				.data(function(d){
+					return d.split("|");
+				})
+				.enter()
+				.append("tspan")
+				.text(function(d){
+					return d.toUpperCase();
+				})
+
+
+			/*	.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
 				.attr("y",margin.top-cellPadding.bottom)
 				.attr("class","heading")
-				.text(function(d){return d.toUpperCase()})
+				.text(function(d){return d.toUpperCase()})*/
 
 			const rows = svg.append("g")
 				.attr("id","rows")
