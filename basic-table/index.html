@@ -92,7 +92,7 @@
 				.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
-				.attr("y",margin.top-cellPadding.bottom)
+				.attr("y",margin.top)
 				.attr("class","heading");
 
 			header.selectAll("tspan")
@@ -108,6 +108,13 @@
 					return i*headerLeading;
 				})
 
+			//to establish the height of something:
+			//console.log(d3.select("#header").node().getBBox().height);
+
+			d3.select("#header").attr("transform",function(){
+				const headerHeight = d3.select("#header").node().getBBox().height;
+				return "translate(0,"+(-headerHeight)+")";
+			})
 
 			//set all tspan x to colPos + cellPadding
 			//adjust y offset for height
