@@ -104,6 +104,9 @@
 				.text(function(d){
 					return d.toUpperCase();
 				})
+				.attr("x",function(d,i){
+					return d3.select(this).node().parentNode.getAttribute("x");
+				})
 				.attr("dy",function(d,i){
 					return i*headerLeading;
 				})
