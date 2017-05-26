@@ -59,8 +59,6 @@
 			//extract column names
 			const headings = d3.keys(csv[0]);
 
-
-
 			//draw SVG
 			const svg = d3.select("body").append("svg")
 				.attr("width",w)
@@ -108,27 +106,13 @@
 					//inherit the x attribute of the parent text node
 					return d3.select(this).node().parentNode.getAttribute("x");
 				})
-				.attr("dy",function(d,i){
-					return headerLeading;
-				})
+				.attr("dy",headerLeading)
 
 
 			d3.select("#header").attr("transform",function(){
 				const headerHeight = d3.select("#header").node().getBBox().height;
 				return "translate(0,"+(-headerHeight)+")";
 			})
-
-			//adjust y offset for height
-				
-
-
-
-			/*	.attr("x",function(d,i){
-					return colPos[i]+cellPadding.left;
-				})
-				.attr("y",margin.top-cellPadding.bottom)
-				.attr("class","heading")
-				.text(function(d){return d.toUpperCase()})*/
 
 			const rows = svg.append("g")
 				.attr("id","rows")
@@ -139,7 +123,7 @@
 				.attr("id",function(d,i){
 					return "row_"+(i+1);
 				})
-				//need to translate the groups later after we have created the content
+				//we need to translate the groups later after we have created the content
 
 			let rowHeights = [];
 
@@ -199,8 +183,6 @@
 				return h;
 			})
 
-
-
 			//horizontal table header divider
 			svg.append("line")
 				.attr("y1",margin.top)
@@ -250,8 +232,7 @@
 					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
 			}
 
-
-		})
+		})//end csv load
 
 		function isEven(n) {
 			//modulus - the % sign - is the remainder from a division operation
