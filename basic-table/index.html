@@ -105,21 +105,19 @@
 					return d.toUpperCase();
 				})
 				.attr("x",function(d,i){
+					//inherit the x attribute of the parent text node
 					return d3.select(this).node().parentNode.getAttribute("x");
 				})
 				.attr("dy",function(d,i){
-					return i*headerLeading;
+					return headerLeading;
 				})
 
-			//to establish the height of something:
-			//console.log(d3.select("#header").node().getBBox().height);
 
 			d3.select("#header").attr("transform",function(){
 				const headerHeight = d3.select("#header").node().getBBox().height;
 				return "translate(0,"+(-headerHeight)+")";
 			})
 
-			//set all tspan x to colPos + cellPadding
 			//adjust y offset for height
 				
 
