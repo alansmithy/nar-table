@@ -24,7 +24,7 @@
 		const dataSource = "toys.csv"
 		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur sodales ligula sagittis volutpat.";
 		const source = "New source which will be |linewrapped"
-		const footnote = "New footnote";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
+		let footnote// = "New footnote|multiline";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
 
 		//starting positions for columns
 		const colPos = [0,40,110,450];
@@ -58,8 +58,6 @@
 
 			//extract column names
 			const headings = d3.keys(csv[0]);
-
-
 
 			//draw SVG
 			const svg = d3.select("body").append("svg")
@@ -108,27 +106,13 @@
 					//inherit the x attribute of the parent text node
 					return d3.select(this).node().parentNode.getAttribute("x");
 				})
-				.attr("dy",function(d,i){
-					return headerLeading;
-				})
+				.attr("dy",headerLeading)
 
 
 			d3.select("#header").attr("transform",function(){
 				const headerHeight = d3.select("#header").node().getBBox().height;
 				return "translate(0,"+(-headerHeight)+")";
 			})
-
-			//adjust y offset for height
-				
-
-
-
-			/*	.attr("x",function(d,i){
-					return colPos[i]+cellPadding.left;
-				})
-				.attr("y",margin.top-cellPadding.bottom)
-				.attr("class","heading")
-				.text(function(d){return d.toUpperCase()})*/
 
 			const rows = svg.append("g")
 				.attr("id","rows")
@@ -139,7 +123,7 @@
 				.attr("id",function(d,i){
 					return "row_"+(i+1);
 				})
-				//need to translate the groups later after we have created the content
+				//we need to translate the groups later after we have created the content
 
 			let rowHeights = [];
 
@@ -199,8 +183,6 @@
 				return h;
 			})
 
-
-
 			//horizontal table header divider
 			svg.append("line")
 				.attr("y1",margin.top)
@@ -231,6 +213,7 @@
 
 			//add (multiline) footnote if required and 
 			if (footnote){
+
 				var footnoteText = svg.append("text")
 					.attr("y",h-6)
 					.attr("class","source")
@@ -248,10 +231,18 @@
 					//now translate the group based on it's BBox
 					var footH = footnoteText.node().getBBox().height;
 					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
+
+					//draw the source text on the right
+			
+			}	else {
+				
+					//draw the source on the left
+
+
+
 			}
 
-
-		})
+		})//end csv load
 
 		function isEven(n) {
 			//modulus - the % sign - is the remainder from a division operation
