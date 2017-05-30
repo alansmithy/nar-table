@@ -14,7 +14,7 @@ Tasks remaining:
 - [ ] bottom align header information
 - [ ] detect when columns hold numbers, and centre them under the header
 - [ ] add commas for numbers 
-- [ ] add function to control decimal places
+- [ ] add function to control decimal places, and force .00 for rounded figures
 
 ### Longer term
 - [ ] detect text/number in columns and format right/center accordingly
