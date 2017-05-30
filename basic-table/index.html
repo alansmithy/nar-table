@@ -24,7 +24,7 @@
 		const dataSource = "toys.csv"
 		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur sodales ligula sagittis volutpat.";
 		const source = "New source which will be |linewrapped"
-		const footnote = "New footnote";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
+		let footnote// = "New footnote|multiline";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
 
 		//starting positions for columns
 		const colPos = [0,40,110,450];
@@ -213,6 +213,7 @@
 
 			//add (multiline) footnote if required and 
 			if (footnote){
+
 				var footnoteText = svg.append("text")
 					.attr("y",h-6)
 					.attr("class","source")
@@ -230,6 +231,15 @@
 					//now translate the group based on it's BBox
 					var footH = footnoteText.node().getBBox().height;
 					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
+
+					//draw the source text on the right
+			
+			}	else {
+				
+					//draw the source on the left
+
+
+
 			}
 
 		})//end csv load
