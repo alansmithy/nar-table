@@ -11,7 +11,7 @@ Tasks remaining:
 ### Next steps
 - [x] add source and switch location depending on footnote
 - [ ] odd-even shading (last cell grey)
-- [ ] bottom align header information
+- [x] bottom align header information
 - [ ] detect when columns hold numbers, and centre them under the header
 - [ ] add commas for numbers 
 - [ ] add function to control decimal places, and force .00 for rounded figures
