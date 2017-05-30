@@ -22,8 +22,8 @@
 	<script>
 
 		const dataSource = "toys.csv"
-		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur sodales ligula sagittis volutpat.";
-		const source = "Source: New source which will be |linewrapped"
+		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur|sodales ligula sagittis volutpat.";
+		const source = "Source: New|source which will be |linewrapped"
 		let footnote = "New footnote|multiline";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
 
 		//starting positions for columns
@@ -83,17 +83,19 @@
 			//header information
 			const header = svg.append("g")
 				.attr("id","header")
-				.selectAll("text")
+				
+			const cols = header.selectAll("text")
 				.data(headings)
 				.enter()
 				.append("text")
+				.attr("id",function(d,i){return "heading"+i})
 				.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
 				.attr("y",margin.top)
 				.attr("class","heading");
 
-			header.selectAll("tspan")
+			cols.selectAll("tspan")
 				.data(function(d){
 					return d.split("|");
 				})
@@ -108,8 +110,29 @@
 				})
 				.attr("dy",headerLeading)
 
+			let maxTextHeight = 0;
 
-			d3.select("#header").attr("transform",function(){
+			headings.forEach(function(d,i){
+				const col = d3.select("#heading"+i);
+				maxTextHeight = d3.max([maxTextHeight,col.node().getBBox().height]);
+			})
+
+			headings.forEach(function(d,i){
+				const col = d3.select("#heading"+i);
+				col.attr("transform",function(){
+					const offset = maxTextHeight-col.node().getBBox().height;
+					return "translate(0,"+offset+")";
+				})
+
+					
+			})
+
+			console.log(maxTextHeight)
+
+
+
+
+			header.attr("transform",function(){
 				const headerHeight = d3.select("#header").node().getBBox().height;
 				return "translate(0,"+(-headerHeight)+")";
 			})
@@ -273,8 +296,6 @@
 					//now translate the group based on it's BBox
 					var footH = sourceText.node().getBBox().height;
 					sourceText.attr("transform","translate(0,"+(h-footH-15)+")")
-
-
 
 			}
 
