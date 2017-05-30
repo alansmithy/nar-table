@@ -8,13 +8,13 @@ As Alan Smith said:
 
 Tasks remaining:
 
-###Next steps
+### Next steps
 - [x] add source and switch location depending on footnote
-- [] odd-even shading (last cell grey)
-- [] bottom align header information
+- [ ] odd-even shading (last cell grey)
+- [ ] bottom align header information
 
-###Longer term
-- [] detect text/number in columns and format right/center accordingly
-- [] consistent , and .00 for numbers
+### Longer term
+- [ ] detect text/number in columns and format right/center accordingly
+- [ ] consistent , and .00 for numbers
 
 
