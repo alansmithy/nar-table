@@ -12,6 +12,9 @@ Tasks remaining:
 - [x] add source and switch location depending on footnote
 - [ ] odd-even shading (last cell grey)
 - [ ] bottom align header information
+- [ ] detect when columns hold numbers, and centre them under the header
+- [ ] add commas for numbers 
+- [ ] add function to control decimal places
 
 ### Longer term
 - [ ] detect text/number in columns and format right/center accordingly
