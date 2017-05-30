@@ -19,5 +19,4 @@ Tasks remaining:
 ### Longer term
 - [ ] detect text/number in columns and format right/center accordingly
 - [ ] consistent , and .00 for numbers
-
-
+test
