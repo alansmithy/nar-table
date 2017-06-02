@@ -10,13 +10,12 @@ Tasks remaining:
 
 ### Next steps
 - [x] add source and switch location depending on footnote
-- [ ] odd-even shading (last cell grey)
+- [x] odd-even shading (last cell grey)
 - [x] bottom align header information
-- [ ] detect when columns hold numbers, and centre them under the header
-- [ ] add commas for numbers 
-- [ ] add function to control decimal places, and force .00 for rounded figures
 
 ### Longer term
 - [ ] detect text/number in columns and format right/center accordingly
 - [ ] consistent , and .00 for numbers
-test
+- [ ] add commas for numbers 
+- [ ] add function to control decimal places, and force .00 for rounded figures
+- [ ] detect when columns hold numbers, and centre them under the 
