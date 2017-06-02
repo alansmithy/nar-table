@@ -11,6 +11,7 @@
 
 			.frame {stroke-width:0.751pt;stroke:#111111;}
 			.divider {stroke-width:0.5pt;stroke:#111111;}
+			.hat {stroke-width:1pt;stroke:#111111;}
 
 			.rowDark{fill:#d1d3d4;}
 			.rowPale{fill:none;}
@@ -211,6 +212,19 @@
 				h = margin.top+margin.bottom+tableHeight;
 				return h;
 			})
+			//hat
+				svg.append("line")
+				.attr("y1",1)
+				.attr("y2",1)
+				.attr("x2",w)
+				.attr("class","hat")
+
+			//hat
+				svg.append("line")
+				.attr("y1",h-1)
+				.attr("y2",h-1)
+				.attr("x2",w)
+				.attr("class","hat")
 
 			//horizontal table header divider
 			svg.append("line")
