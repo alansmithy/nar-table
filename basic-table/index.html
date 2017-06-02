@@ -12,8 +12,8 @@
 			.frame {stroke-width:0.751pt;stroke:#111111;}
 			.divider {stroke-width:0.5pt;stroke:#111111;}
 
-			.rowEven{fill:#fff;}
-			.rowOdd{fill:#eee;}
+			.rowDark{fill:#d1d3d4;}
+			.rowPale{fill:none;}
 
 		</style>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
@@ -55,6 +55,8 @@
 
 		//load data
 		d3.csv(dataSource,function(csv){
+
+			const evenRows = isEven(csv.length)
 
 			//extract column names
 			const headings = d3.keys(csv[0]);
@@ -127,7 +129,6 @@
 					
 			})
 
-			console.log(maxTextHeight)
 
 
 
@@ -156,13 +157,18 @@
 				const currentRow = d3.select(this);
 				const rect = currentRow.append("rect")
 					.attr("width",w)
-					.attr("fill","#eee")
 					.attr("class",function(){
-						if (isEven(i)){
-							return "rowEven";
-						}	else	{
-							return "rowOdd"
+						console.log(i)
+						if (evenRows) {
+//the last row is even else the last row is odd
+							if (isEven(i)) {return "rowPale"}
+							else {return "rowDark"}
 						}
+						else {
+							if (isEven(i)) {return "rowDark"}
+							else {return "rowPale"}
+						}
+
 					})
 					//places the rect in the background, we set height attributes later once the text has been laid out
 			
