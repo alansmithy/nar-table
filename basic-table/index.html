@@ -4,10 +4,10 @@
 		<style>
 
 			text{font-family:'avenir';}
-			.title {font-size:10pt;font-weight:900;}
+			.title {font-size:10pt;font-weight:900;letter-spacing:-.2px;}
 			.source {font-size:6.5pt;font-weight:100;font-style:italic;}
 			.heading {font-size:8pt;font-weight:900;}
-			.row {font-size:8pt;font-weight:100;}
+			.row {font-size:8pt;font-weight:100;letter-spacing:-.1px;}
 
 			.frame {stroke-width:0.751pt;stroke:#111111;}
 			.divider {stroke-width:0.5pt;stroke:#111111;}
@@ -23,9 +23,9 @@
 	<script>
 
 		const dataSource = "toys.csv"
-		const title = "Lorem ipsum dolor sit amet,|consectetur adipiscing elit. Donec efficitur|sodales ligula sagittis volutpat.";
-		const source = "Source: New|source which will be |linewrapped"
-		let footnote = "New footnote|multiline";//for no footnote, provide no value i.e. just leave is as 'const footnote//'
+		const title = "Lorem ipsum dolor sit amet, consectetur adipiscing |elit donec efficitur sodales ligula sagittis volutpat";
+		const source = "Source: New|source which will be linewrapped"//for no source, "nothing inside"
+		let footnote = "New footnote|multiline";//for no footnote, "nothing inside"
 
 		//starting positions for columns
 		const colPos = [0,20,85,250];
@@ -34,22 +34,22 @@
 		let h;//will be determined by the rows and will change
 
 		//leading settings
-		const titleLeading = 14;
-		const rowLeading = 11;
-		const headerLeading = 10;
-		const footnoteLeading = 10;
+		const titleLeading = 11;
+		const rowLeading = 8.5;
+		const headerLeading = 9;
+		const footnoteLeading = 7;
 
 		//margins above and below the table itself
 		const margin = {
-			top:100,
-			bottom:50
+			top:66,
+			bottom:25
 		};
 
 		//table cell padding
 		const cellPadding = {
 			left:4,
-			top:4,
-			bottom:0
+			top:3,
+			bottom:-4
 		};
 
 		/*shouldn't need to change much below here*/
@@ -78,7 +78,7 @@
 					return d;
 				})
 				.attr("x",0)
-				.attr("y",20)
+				.attr("y",15)
 				.attr("dy",function(d,i){
 					return i*titleLeading;
 				})
@@ -181,7 +181,7 @@
 						})
 						.attr("class","row")
 						.attr("x",colPos[j]+cellPadding.left)
-						.attr("y",cellPadding.top-3)
+						.attr("y",cellPadding.top-2.5)
 
 					const tspans = textContent.selectAll("tspan")
 						.data(function(d,i){return d[e].split("|")})
@@ -251,7 +251,7 @@
 				})
 				.attr("y2",function(){
 					const tableHeight = d3.select("#rows").node().getBBox().height;
-					return tableHeight+margin.top;
+					return tableHeight+margin.top-1;
 				})
 
 			//add (multiline) footnote if required and 
@@ -287,7 +287,7 @@
 						.enter()
 						.append("tspan")
 						.text(function(d,i){return d;})
-						.attr("x",w)
+						.attr("x",w-1)
 						.attr("y",20)
 						.attr("dy",function(d,i){return i*footnoteLeading;})
 
