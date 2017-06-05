@@ -35,7 +35,7 @@
 
 		//leading settings
 		const titleLeading = 14;
-		const rowLeading = 10;
+		const rowLeading = 11;
 		const headerLeading = 10;
 		const footnoteLeading = 10;
 
@@ -48,8 +48,8 @@
 		//table cell padding
 		const cellPadding = {
 			left:4,
-			top:10,
-			bottom:4
+			top:4,
+			bottom:0
 		};
 
 		/*shouldn't need to change much below here*/
@@ -181,7 +181,7 @@
 						})
 						.attr("class","row")
 						.attr("x",colPos[j]+cellPadding.left)
-						.attr("y",cellPadding.top)
+						.attr("y",cellPadding.top-3)
 
 					const tspans = textContent.selectAll("tspan")
 						.data(function(d,i){return d[e].split("|")})
