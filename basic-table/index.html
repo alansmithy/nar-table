@@ -23,9 +23,9 @@
 	<script>
 
 		const dataSource = "toys.csv"
-		const title = "Lorem ipsum dolor sit amet, consectetur adipiscing |elit donec efficitur sodales ligula sagittis volutpat";
-		const source = "Source: New|source which will be linewrapped"//for no source, "nothing inside"
-		let footnote = "New footnote|multiline";//for no footnote, "nothing inside"
+		const title = "Lorem ipsum dolor sit consectetur adipiscing (in millions of)";//; add | to break text to new line
+		const source = "Source: linewrapped"//for no source, "nothing inside"; add | to break text to new line
+		let footnote = "Linewrapped footnote";//for no footnote, "nothing inside"; add | to break text to new line
 
 		//starting positions for columns
 		const colPos = [0,20,85,250];
@@ -41,8 +41,8 @@
 
 		//margins above and below the table itself
 		const margin = {
-			top:66,
-			bottom:25
+			top:40, //40 for one-line title, 66 for two lines
+			bottom:18 //18 for one-line footnote/source, 25 for two lines
 		};
 
 		//table cell padding
