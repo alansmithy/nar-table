@@ -28,28 +28,28 @@
 		let footnote = "Linewrapped footnote";//for no footnote, "nothing inside"; add | to break text to new line
 
 		//starting positions for columns
-		const colPos = [0,20,85,250];
+		const colPos = [0,20,85,290];
 
 		const w = 341;//width is constant, you can only set it here
 		let h;//will be determined by the rows and will change
 
 		//leading settings
 		const titleLeading = 11;
-		const rowLeading = 8.5;
-		const headerLeading = 9;
+		const rowLeading = 11.5;
+		const headerLeading = 8;
 		const footnoteLeading = 7;
 
 		//margins above and below the table itself
 		const margin = {
-			top:40, //40 for one-line title, 66 for two lines
+			top:49, //40 for one-line title, 66 for two lines
 			bottom:18 //18 for one-line footnote/source, 25 for two lines
 		};
 
 		//table cell padding
 		const cellPadding = {
 			left:4,
-			top:3,
-			bottom:-4
+			top:1.5,
+			bottom:0.5
 		};
 
 		/*shouldn't need to change much below here*/
@@ -78,7 +78,7 @@
 					return d;
 				})
 				.attr("x",0)
-				.attr("y",15)
+				.attr("y",19)
 				.attr("dy",function(d,i){
 					return i*titleLeading;
 				})
@@ -95,7 +95,7 @@
 				.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
-				.attr("y",margin.top)
+				.attr("y",margin.top+3)
 				.attr("class","heading");
 
 			cols.selectAll("tspan")
