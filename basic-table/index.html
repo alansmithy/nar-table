@@ -5,11 +5,12 @@
 
 			text{font-family:'avenir';}
 			.title {font-size:10pt;font-weight:900;letter-spacing:-.2px;}
+			.subtitle {font-size:7.5pt;font-weight:100;font-style:italic;}
 			.source {font-size:6.5pt;font-weight:100;font-style:italic;}
 			.heading {font-size:8pt;font-weight:900;}
 			.row {font-size:8pt;font-weight:100;letter-spacing:-.1px;}
 
-			.frame {stroke-width:0.751pt;stroke:#111111;}
+			.frame {stroke-width:0.75pt;stroke:#111111;}
 			.divider {stroke-width:0.5pt;stroke:#111111;}
 			.hat {stroke-width:1pt;stroke:#111111;}
 
@@ -23,7 +24,8 @@
 	<script>
 
 		const dataSource = "toys.csv"
-		const title = "Lorem ipsum dolor sit consectetur adipiscing (in millions of)";//; add | to break text to new line
+		const title = "Lorem ipsum dolor sit consectetur adipiscing";//; add | to break text to new line
+		const subtitle = "(in millions of)";
 		const source = "Source: linewrapped"//for no source, "nothing inside"; add | to break text to new line
 		let footnote = "Linewrapped footnote";//for no footnote, "nothing inside"; add | to break text to new line
 
@@ -35,13 +37,14 @@
 
 		//leading settings
 		const titleLeading = 11;
+		const subtitleLeading = 9;
 		const rowLeading = 11.5;
-		const headerLeading = 8;
+		const headerLeading = 9;
 		const footnoteLeading = 7;
 
 		//margins above and below the table itself
 		const margin = {
-			top:49, //40 for one-line title, 66 for two lines
+			top:62, //50 for one-line title, 62 with subtitle, 66 for two-line title
 			bottom:18 //18 for one-line footnote/source, 25 for two lines
 		};
 
@@ -83,6 +86,23 @@
 					return i*titleLeading;
 				})
 
+				const subtitleText = svg.append("text")
+				.attr("class","subtitle")
+			//create title tspan (multiline) elements
+			subtitleText.selectAll("tspan")
+				.data(subtitle.split("|"))
+				.enter()
+				.append("tspan")
+				.text(function(d,i){
+					return d;
+				})
+				.attr("x",0)
+				.attr("y",31)
+				.attr("dy",function(d,i){
+					return i*subtitleLeading;
+				})
+
+
 			//header information
 			const header = svg.append("g")
 				.attr("id","header")
@@ -95,7 +115,7 @@
 				.attr("x",function(d,i){
 					return colPos[i]+cellPadding.left;
 				})
-				.attr("y",margin.top+3)
+				.attr("y",margin.top+1)
 				.attr("class","heading");
 
 			cols.selectAll("tspan")
@@ -251,7 +271,7 @@
 				})
 				.attr("y2",function(){
 					const tableHeight = d3.select("#rows").node().getBBox().height;
-					return tableHeight+margin.top-1;
+					return tableHeight+margin.top;
 				})
 
 			//add (multiline) footnote if required and 
