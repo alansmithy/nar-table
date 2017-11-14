@@ -4,15 +4,15 @@
 		<style>
 
 			text{font-family:'avenir';}
-			.title {font-size:10pt;font-weight:900;letter-spacing:-.2px;}
-			.subtitle {font-size:7.5pt;font-weight:100;font-style:italic;}
-			.source {font-size:6.5pt;font-weight:100;font-style:italic;}
-			.heading {font-size:8pt;font-weight:900;}
-			.row {font-size:8pt;font-weight:100;letter-spacing:-.1px;}
+			.title {font-size:7.5pt;font-weight:900;letter-spacing:-.15px;}
+			.subtitle {font-size:5.625pt;font-weight:100;font-style:italic;}
+			.source {font-size:4.875pt;font-weight:100;font-style:italic;}
+			.heading {font-size:6pt;font-weight:900;}
+			.row {font-size:6pt;font-weight:100;letter-spacing:-.08px;}
 
-			.frame {stroke-width:0.75pt;stroke:#111111;}
-			.divider {stroke-width:0.5pt;stroke:#111111;}
-			.hat {stroke-width:1pt;stroke:#111111;}
+			.frame {stroke-width:0.563pt;stroke:#111111;}
+			.divider {stroke-width:0.25pt;stroke:#111111;}
+			.hat {stroke-width:0.75pt;stroke:#111111;}
 
 			.rowDark{fill:#d1d3d4;}
 			.rowPale{fill:none;}
@@ -36,23 +36,23 @@
 		let h;//will be determined by the rows and will change
 
 		//leading settings
-		const titleLeading = 11;
-		const subtitleLeading = 9;
-		const rowLeading = 11.5;
-		const headerLeading = 9;
-		const footnoteLeading = 7;
+		const titleLeading = 7.5;
+		const subtitleLeading = 7;
+		const rowLeading = 9;
+		const headerLeading = 7;
+		const footnoteLeading = 5.25;
 
 		//margins above and below the table itself
 		const margin = {
-			top:62, //50 for one-line title, 62 with subtitle, 66 for two-line title
-			bottom:18 //18 for one-line footnote/source, 25 for two lines
+			top:49, //40 for one-line title, 46.5 with subtitle, 49 for two-line title
+			bottom:13.5 //13.5 for one-line footnote/source, 18.75 for two lines
 		};
 
 		//table cell padding
 		const cellPadding = {
-			left:4,
-			top:1.5,
-			bottom:0.5
+			left:3,
+			top:1.3,
+			bottom:0.375
 		};
 
 		/*shouldn't need to change much below here*/
@@ -81,7 +81,7 @@
 					return d;
 				})
 				.attr("x",0)
-				.attr("y",19)
+				.attr("y",14.25)
 				.attr("dy",function(d,i){
 					return i*titleLeading;
 				})
@@ -97,7 +97,7 @@
 					return d;
 				})
 				.attr("x",0)
-				.attr("y",31)
+				.attr("y",23.25)
 				.attr("dy",function(d,i){
 					return i*subtitleLeading;
 				})
@@ -201,7 +201,7 @@
 						})
 						.attr("class","row")
 						.attr("x",colPos[j]+cellPadding.left)
-						.attr("y",cellPadding.top-2.5)
+						.attr("y",cellPadding.top-1.875)
 
 					const tspans = textContent.selectAll("tspan")
 						.data(function(d,i){return d[e].split("|")})
@@ -234,15 +234,15 @@
 			})
 			//hat
 				svg.append("line")
-				.attr("y1",1)
-				.attr("y2",1)
+				.attr("y1",0.75)
+				.attr("y2",0.75)
 				.attr("x2",w)
 				.attr("class","hat")
 
 			//hat
 				svg.append("line")
-				.attr("y1",h-1)
-				.attr("y2",h-1)
+				.attr("y1",h-0.75)
+				.attr("y2",h-0.75)
 				.attr("x2",w)
 				.attr("class","hat")
 
@@ -288,17 +288,17 @@
 						.append("tspan")
 						.text(function(d,i){return d;})
 						.attr("x",0)
-						.attr("y",20)
+						.attr("y",21)
 						.attr("dy",function(d,i){return i*footnoteLeading;})
 
 					//now translate the group based on it's BBox
 					var footH = footnoteText.node().getBBox().height;
-					footnoteText.attr("transform","translate(0,"+(h-footH-15)+")")
+					footnoteText.attr("transform","translate(0,"+(h-footH-17)+")")
 
 					//draw the source text on the right
 	var sourceText = svg.append("text")
 					.attr("text-anchor","end")
-					.attr("y",h-6)
+					.attr("y",h-4.5)
 					.attr("class","source")
 					
 					//tspan for each element
@@ -308,7 +308,7 @@
 						.append("tspan")
 						.text(function(d,i){return d;})
 						.attr("x",w-1)
-						.attr("y",20)
+						.attr("y",19)
 						.attr("dy",function(d,i){return i*footnoteLeading;})
 
 					//now translate the group based on it's BBox
@@ -330,12 +330,12 @@
 						.append("tspan")
 						.text(function(d,i){return d;})
 						.attr("x",0)
-						.attr("y",20)
+						.attr("y",18)
 						.attr("dy",function(d,i){return i*footnoteLeading;})
 
 					//now translate the group based on it's BBox
 					var footH = sourceText.node().getBBox().height;
-					sourceText.attr("transform","translate(0,"+(h-footH-15)+")")
+					sourceText.attr("transform","translate(0,"+(h-footH-11.25)+")")
 
 			}
 
